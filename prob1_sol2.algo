@@ -1,0 +1,44 @@
+ALGORITHM prob1_sol2
+VAR
+    htab:HASH_TABLE<INTEGER,INTEGER> ;
+    set1 : ARRAY_OF INTEGER[];
+    set2 : ARRAY_OF INTEGER[];
+    count,i,j:INTEGER;
+    sum:INTEGER:=0;
+BEGIN
+//insertion set1 and set2 in htab
+    htab:HASH_TABLE<INTEGER,INTEGER>;
+    FOR i FROM 0 TO set1.length STEP 1  DO
+        IF (htab.lookup(set1[i]=TRUE)) THEN
+            count:=htab.get(set1[i]);
+            htab.insert(set1[i],count+1);
+        ELSE
+            htab.insert(set1[i],1);
+        END_IF
+        i:=i+1;
+    END_FOR
+
+    FOR j FROM 0 TO set2.length STEP 1  DO
+        IF (htab.lookup(set2[j]=TRUE)) THEN
+            count:=htab.get(set2[j]);
+            htab.insert(set2[j],count+1);
+        ELSE
+            htab.insert(set2[j],1);
+        END_IF
+        j:=j+1;
+    END_FOR
+//get sum of distinct elements
+    FOR i FROM 0 TO set1.length STEP 1  DO
+        IF (htab.get(set1[i])=1) THEN
+            sum:= sum+set1[i];
+        END_IF
+        i:=i+1;
+    END_FOR
+        FOR j FROM 0 TO set2.length STEP 1  DO
+        IF (htab.get(set2[j])=1) THEN
+          sum:= sum+set2[j];
+        END_IF
+        j:=j+1;
+    END_FOR
+      write("Sum of all distinct elements:",sum);   
+END
